@@ -1,0 +1,54 @@
+= AsciiDoc Article Title
+3.0, July 29, 2022: AsciiDoc article template
+:toc:
+:icons: font
+:url-quickref: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+
+== Brief description of the architecture
+
+The main idea is to separate operations and isolate it in the one package. This approach produces code duplication but gives possibility to create new operations in parallel with isolated scope and behaviour or make changes in the existed operations without affecting other operations. As a result it reduces delivery time and eliminates merge conflicts.
+
+All shared code should have simple and abstract implementation and should be implemented in the other module as an adapter. The good examples is the adapter to the external storage (e.g. Database), but it should not contain domain and entity models.
+
+== How to build
+
+[#id-for-listing-block]
+.Run build.sh script which is contains next statement:
+----
+./mvnw clean package
+----
+
+== How to test
+
+=== Solution for Question 1
+
+Package read_singlestream contains implementation for Question 1 from the JavaTest.pdf.
+
+In the package you may find class Trigger which is contains *main* method to run reading stream from *SimpleCharacterReader*.
+
+You may run it from IDE
+
+.Also, you may run it with script *runQuestionOne.sh* which contains next statement
+----
+java -Dfile.encoding=UTF-8 -classpath ./target/classes:./target/libs/commons-lang3-3.12.0.jar:./target/libs/logback-classic-1.2.11.jar:./target/libs/logback-core-1.2.11.jar:./target/libs/slf4j-api-1.7.32.jar javatest.read_singlestream.Trigger
+
+----
+
+Unit Tests covers case described in JavaTest.pdf for Question 1.
+You may find it in the test class javatest.read_singlestream.HandlerTest
+
+=== Solution for Question 2
+
+Package read_multiplystreams contains implementation for Question 2 from the JavaTest.pdf.
+
+In the package you may find class Trigger which is contains *main* method to run reading streams from *SlowCharacterReader*.
+
+You may run it from IDE
+
+.Also, you may run it with script *runQuestionOne.sh* which contains next statement
+----
+java -Dfile.encoding=UTF-8 -classpath ./target/classes:./target/libs/commons-lang3-3.12.0.jar:./target/libs/logback-classic-1.2.11.jar:./target/libs/logback-core-1.2.11.jar:./target/libs/slf4j-api-1.7.32.jar javatest.read_multiplystreams.Trigger
+----
+
+Unit Tests covers case described in JavaTest.pdf for Question 2.
+You may find it in the test class javatest.read_multiplystreams.HandlerTest
